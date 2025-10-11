@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", function() {
+        // Get the <a-scene> element
+        const scene = document.querySelector('a-scene');
+
+        // Create a <a-dodecahedron> element
+        const dodecahedron = document.createElement('a-dodecahedron');
+
+        // Set its position, radius, and color
+        dodecahedron.setAttribute('position', '0 1 -4');
+        dodecahedron.setAttribute('radius', '1');
+        dodecahedron.setAttribute('color', '#FF5733');
+
+        // Add it to the scene
+        scene.appendChild(dodecahedron);
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+      <!-- Dodecahedron is added by script -->
+    </a-scene>
+  </body>
+</html>
