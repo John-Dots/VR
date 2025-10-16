@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Turtle Graphics: Clouds and Houses</title>
+<style>
+  canvas { background: skyblue; display: block; margin: auto; }
+</style>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600"></canvas>
+<script>
+  // Simple turtle implementation
+  class Turtle {
+    constructor(ctx) {
+      this.ctx = ctx;
+      this.x = 400;
+      this.y = 300;
+      this.angle = 0; // Facing right
+      this.isPenDown = true;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'black';
+      ctx.fillStyle = 'black';
+    }
+    forward(dist) {
+      const rad = this.angle * Math.PI / 180;
+      const newX = this.x + dist * Math.cos(rad);
+      const newY = this.y + dist * Math.sin(rad);
+      if (this.isPenDown) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.x, this.y);
+        this.ctx.lineTo(newX, newY);
+        this.ctx.stroke();
+      }
+      this.x = newX;
+      this.y = newY;
+    }
+    right(deg) { this.angle += deg; }
+    left(deg) { this.angle -= deg; }
+    penUp() { this.isPenDown = false; }
+    penDown() { this.isPenDown = true; }
+    goto(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+    setColor(color) {
+      this.ctx.strokeStyle = color;
+      this.ctx.fillStyle = color;
+    }
+    beginFill() {
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.x, this.y);
+    }
+    fill() {
+      this.ctx.fill();
+    }
+  }
+
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const turtle = new Turtle(ctx);
+
+  function drawCircle(x, y, radius, color) {
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
+  function drawCloud(x, y, radius=20) {
+    // Simplified cloud with 5 circles
+    drawCircle(x, y, radius, 'white');
+    drawCircle(x + radius * 0
