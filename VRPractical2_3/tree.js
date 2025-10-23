@@ -109,7 +109,7 @@ class House {
 }
 
 for (let i = 0; i < 10; i++) {
-  let x = rnd(5, 20); // shift to right - positive X only
+  let x = rnd(5, 20); 
   let z = rnd(-20, 20);
   new House(x, 0, z);
 }
