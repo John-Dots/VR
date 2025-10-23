@@ -1,98 +1,130 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script>
-      // Tree class
-      class Tree {
-        constructor(x, y, z) {
-          this.el = document.createElement('a-entity');
-          this.el.setAttribute('position', `${x} ${y} ${z}`);
-          // Trunk
-          let trunk = document.createElement('a-cylinder');
-          trunk.setAttribute('height', 1);
-          trunk.setAttribute('radius', 0.2);
-          trunk.setAttribute('color', '#8B5A2B');
-          trunk.setAttribute('position', '0 0.5 0');
-          this.el.appendChild(trunk);
-          // Foliage
-          let foliage = document.createElement('a-sphere');
-          foliage.setAttribute('radius', 0.6);
-          foliage.setAttribute('color', '#268d2d');
-          foliage.setAttribute('position', '0 1.2 0');
-          this.el.appendChild(foliage);
-          document.querySelector('a-scene').appendChild(this.el);
-        }
-      }
-      // Cloud class
-      class Cloud {
-        constructor(x, y, z) {
-          this.el = document.createElement('a-entity');
-          this.el.setAttribute('position', `${x} ${y} ${z}`);
-          // Cloud body
-          let main = document.createElement('a-sphere');
-          main.setAttribute('radius', 0.7);
-          main.setAttribute('color', '#fff');
-          main.setAttribute('position', '0 0 0');
-          this.el.appendChild(main);
-          let fluff1 = document.createElement('a-sphere');
-          fluff1.setAttribute('radius', 0.5);
-          fluff1.setAttribute('color', '#eee');
-          fluff1.setAttribute('position', '0.6 0.3 0.3');
-          this.el.appendChild(fluff1);
-          let fluff2 = document.createElement('a-sphere');
-          fluff2.setAttribute('radius', 0.4);
-          fluff2.setAttribute('color', '#eee');
-          fluff2.setAttribute('position', '-0.5 0.2 0.2');
-          this.el.appendChild(fluff2);
-          document.querySelector('a-scene').appendChild(this.el);
-        }
-      }
-      // House class
-      class House {
-        constructor(x, y, z) {
-          this.el = document.createElement('a-entity');
-          this.el.setAttribute('position', `${x} ${y} ${z}`);
-          // House base
-          let base = document.createElement('a-box');
-          base.setAttribute('width', 1.2);
-          base.setAttribute('height', 0.7);
-          base.setAttribute('depth', 1);
-          base.setAttribute('color', '#8B4513');
-          base.setAttribute('position', '0 0.35 0');
-          this.el.appendChild(base);
-          // Roof
-          let roof = document.createElement('a-cone');
-          roof.setAttribute('radius-bottom', 0.85);
-          roof.setAttribute('radius-top', 0);
-          roof.setAttribute('height', 0.6);
-          roof.setAttribute('color', '#CC0000');
-          roof.setAttribute('position', '0 0.85 0');
-          this.el.appendChild(roof);
-          // Door
-          let door = document.createElement('a-box');
-          door.setAttribute('width', 0.3);
-          door.setAttribute('height', 0.45);
-          door.setAttribute('depth', 0.05);
-          door.setAttribute('color', '#FFF');
-          door.setAttribute('position', '0 0.225 0.52');
-          this.el.appendChild(door);
-          document.querySelector('a-scene').appendChild(this.el);
-        }
-      }
-      // Add objects after page load
-      window.onload = () => {
-        new Tree(0, 0, -5);
-        new Cloud(2, 3, -5);
-        new House(-2, 0.35, -4);
-      }
-    </script>
   </head>
   <body>
     <a-scene>
       <a-plane position="0 0 -1" rotation="-90 0 0" width="100" height="100" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
-      <!-- Camera is added so that you do not "spawn" at the origin -->
       <a-camera position="0 1.3 4"></a-camera>
     </a-scene>
+
+    <script>
+      class Tree {
+        constructor(position = "1 0 -3", scale = "1 1 1", color = "green", trunkColor = "#8B4513") {
+          this.position = position;
+          this.scale = scale;
+          this.color = color;
+          this.trunkColor = trunkColor;
+        }
+        createEntity() {
+          const entity = document.createElement('a-entity');
+          entity.setAttribute('position', this.position);
+          entity.setAttribute('scale', this.scale);
+
+          const cylinder = document.createElement('a-cylinder');
+          cylinder.setAttribute('height', '1');
+          cylinder.setAttribute('radius', '0.2');
+          cylinder.setAttribute('color', this.trunkColor);
+          cylinder.setAttribute('position', '0 0.5 0');
+
+          const sphere = document.createElement('a-sphere');
+          sphere.setAttribute('radius', '0.7');
+          sphere.setAttribute('color', this.color);
+          sphere.setAttribute('position', '0 1.4 0');
+
+          entity.appendChild(cylinder);
+          entity.appendChild(sphere);
+
+          return entity;
+        }
+      }
+
+      class Cloud {
+        constructor(position = "0 4 -5", scale = "1 1 1", color = "#FFF") {
+          this.position = position;
+          this.scale = scale;
+          this.color = color;
+        }
+        createEntity() {
+          const entity = document.createElement('a-entity');
+          entity.setAttribute('position', this.position);
+          entity.setAttribute('scale', this.scale);
+
+          const sphere1 = document.createElement('a-sphere');
+          sphere1.setAttribute('radius', '0.6');
+          sphere1.setAttribute('color', this.color);
+          sphere1.setAttribute('position', '0 0 0');
+
+          const sphere2 = document.createElement('a-sphere');
+          sphere2.setAttribute('radius', '0.4');
+          sphere2.setAttribute('color', this.color);
+          sphere2.setAttribute('position', '0.7 0.1 0');
+
+          const sphere3 = document.createElement('a-sphere');
+          sphere3.setAttribute('radius', '0.4');
+          sphere3.setAttribute('color', this.color);
+          sphere3.setAttribute('position', '-0.7 0.1 0');
+
+          entity.appendChild(sphere1);
+          entity.appendChild(sphere2);
+          entity.appendChild(sphere3);
+
+          return entity;
+        }
+      }
+
+      class House {
+        constructor(position = "2 0.5 -3", scale = "1 1 1", color = "#FFD700", roofColor = "#8B0000") {
+          this.position = position;
+          this.scale = scale;
+          this.color = color;
+          this.roofColor = roofColor;
+        }
+        createEntity() {
+          const entity = document.createElement('a-entity');
+          entity.setAttribute('position', this.position);
+          entity.setAttribute('scale', this.scale);
+
+          const box = document.createElement('a-box');
+          box.setAttribute('width', '1.2');
+          box.setAttribute('height', '0.8');
+          box.setAttribute('depth', '1');
+          box.setAttribute('color', this.color);
+
+          const cone = document.createElement('a-cone');
+          cone.setAttribute('radius-bottom', '0.7');
+          cone.setAttribute('radius-top', '0');
+          cone.setAttribute('height', '0.6');
+          cone.setAttribute('color', this.roofColor);
+          cone.setAttribute('position', '0 0.7 0');
+
+          entity.appendChild(box);
+          entity.appendChild(cone);
+
+          return entity;
+        }
+      }
+
+      window.onload = () => {
+        const scene = document.querySelector('a-scene');
+
+        const cloud1 = new Cloud("0 4 -5", "1.2 1.2 1");
+        const cloud2 = new Cloud("3 5 -6", "1 1 1");
+
+        const house1 = new House("2 0.5 -3", "1 1 1");
+        const house2 = new House("-2 0.5 -4", "1 1 1");
+
+        const tree1 = new Tree("1 0 -3");
+
+        scene.appendChild(cloud1.createEntity());
+        scene.appendChild(cloud2.createEntity());
+
+        scene.appendChild(house1.createEntity());
+        scene.appendChild(house2.createEntity());
+
+        scene.appendChild(tree1.createEntity());
+      };
+    </script>
   </body>
 </html>
