@@ -4,13 +4,12 @@
     <script src="script.js"></script>
   </head>
   <body>
-      <a-scene>
-        <!-- Challenge 1: Add a propriate plane and sky for the missile launch site -->
-    
-        
-      
-      <!-- Camera is added so that you do not "spawn" at the origin -->
-      <a-camera position="0 1.3 4"></a-camera>
+    <a-scene>
+      <!-- Sky and ground -->
+      <a-sky color="#87ceeb"></a-sky>
+      <a-plane color="#7CFC00" width="50" height="50" rotation="-90 0 0" position="0 0 0"></a-plane>
+      <!-- Camera -->
+      <a-camera position="0 1.3 22"></a-camera>
     </a-scene>
   </body>
 </html>
