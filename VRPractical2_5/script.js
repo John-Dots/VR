@@ -44,12 +44,19 @@ class MazeTrap {
 
 class MazeMarker {
   constructor(x, z, type) {
-    let el = document.createElement('a-box');
-    el.setAttribute('position', `${x} 0.5 ${z}`);
+    let el;
+    if (type === "start") {
+      el = document.createElement('a-box');
+      el.setAttribute('color', '#0F0'); // green for entrance
+      el.setAttribute('height', 2);
+    } else {
+      el = document.createElement('a-box');
+      el.setAttribute('color', '#FFD700'); // gold for exit
+      el.setAttribute('height', 2);
+    }
     el.setAttribute('width', 1);
-    el.setAttribute('height', 1);
     el.setAttribute('depth', 1);
-    el.setAttribute('color', type === "start" ? "#33f" : "#3f3");
+    el.setAttribute('position', `${x} 1 ${z}`);
     document.querySelector('a-scene').appendChild(el);
   }
 }
