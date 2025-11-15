@@ -6,12 +6,15 @@
   <body>
     <a-scene>
       <a-assets>
-        
-      </a-assets>
+     </a-assets>
       <a-plane position="0 0 0" rotation="-90 0 0" width="150" height="150" color="#AAFFAA"></a-plane>
       <a-sky color="blue"></a-sky>
       <a-camera position="0 1.3 0"></a-camera>
-      <!-- Maze walls and objects are created by JS -->
+      <!-- Maze elements are added by JS -->
     </a-scene>
   </body>
 </html>
+
+<a-camera position="0 1.6 0"
+          wasd-controls="fly: false"
+          collision="objects: a-box;"></a-camera>
