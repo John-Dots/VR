@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded",function() {
 
   surpriseBox = document.getElementById("surpriseBox");
 
-  balloon2 = document.getElementById("balloon2"); //red
+  balloon2 = document.getElementById("balloon2"); //Yellow
   let pos2 = balloon2.getAttribute("position");
   balloon2.x = pos2.x;
   balloon2.y = pos2.y;
