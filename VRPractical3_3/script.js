@@ -1,5 +1,6 @@
 let rnd = (l,u) => Math.random() * (u-l) + l;
-let scene, camera, bullet;
+
+let scene, camera, bullet = null;
 let enemies = [];
 let ammo_boxes = [];
 let ammo_count = 3;
@@ -11,13 +12,12 @@ window.addEventListener("DOMContentLoaded",function() {
   scene  = document.querySelector("a-scene");
   camera = document.querySelector("#playerCam");
 
-  // create enemies and ammo boxes
   createEnemies();
   createAmmoBoxes();
+  updateHUD();
 
   window.addEventListener("keydown",function(e){
-    // spacebar and sufficient ammo
-    if(e.key == " " && ammo_count > 0 && !gameOver){
+    if(e.key === " " && ammo_count > 0 && !gameOver){
       bullet = new Bullet();
       ammo_count--;
       updateHUD();
@@ -26,18 +26,17 @@ window.addEventListener("DOMContentLoaded",function() {
 
   setTimeout(loop,100);
   setTimeout(countdown,1000);
-  updateHUD();
 });
 
 function createEnemies(){
   for(let i=0;i<5;i++){
     let enemy = document.createElement("a-box");
     enemy.setAttribute("color","red");
-    enemy.setAttribute("depth",1);
-    enemy.setAttribute("height",1);
     enemy.setAttribute("width",1);
+    enemy.setAttribute("height",1);
+    enemy.setAttribute("depth",1);
     enemy.setAttribute("position",{
-      x:rnd(-15,15),
+      x:rnd(-10,10),
       y:1,
       z:rnd(-15,-5)
     });
@@ -50,11 +49,11 @@ function createAmmoBoxes(){
   for(let i=0;i<4;i++){
     let box = document.createElement("a-box");
     box.setAttribute("color","blue");
-    box.setAttribute("depth",0.7);
-    box.setAttribute("height",0.7);
     box.setAttribute("width",0.7);
+    box.setAttribute("height",0.7);
+    box.setAttribute("depth",0.7);
     box.setAttribute("position",{
-      x:rnd(-15,15),
+      x:rnd(-10,10),
       y:0.5,
       z:rnd(-15,-5)
     });
@@ -82,6 +81,7 @@ function countdown(){
   if(gameOver){
     return;
   }
+
   time_left--;
   updateHUD();
 
@@ -89,47 +89,61 @@ function countdown(){
     checkWinLose(true);
     return;
   }
+
   setTimeout(countdown,1000);
 }
 
 function distance(obj1,obj2){
-  let x1 = obj1.object3D.position.x;
-  let y1 = obj1.object3D.position.y;
-  let z1 = obj1.object3D.position.z;
-  let x2 = obj2.object3D.position.x;
-  let y2 = obj2.object3D.position.y;
-  let z2 = obj2.object3D.position.z;
-  let d = Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2) + Math.pow(z1-z2,2));
-  return d;
+  let p1 = obj1.object3D.position;
+  let p2 = obj2.object3D.position;
+  let dx = p1.x - p2.x;
+  let dy = p1.y - p2.y;
+  let dz = p1.z - p2.z;
+  return Math.sqrt(dx*dx + dy*dy + dz*dz);
 }
 
-// bullet vs enemies
+// Bullet vs enemies
 function checkBulletHits(){
+  if(!bullet) return;
+
   for(let i=0;i<enemies.length;i++){
     let e = enemies[i];
     if(!e) continue;
+
     if(distance(bullet.obj,e) < 1.0){
       scene.removeChild(e);
       enemies[i] = null;
+
       scene.removeChild(bullet.obj);
       bullet = null;
+
       enemy_killed++;
       updateHUD();
       checkWinLose(false);
       break;
     }
   }
+
+  // remove bullet if it goes too far
+  if(bullet){
+    if(Math.abs(bullet.obj.object3D.position.x) > 40 ||
+       Math.abs(bullet.obj.object3D.position.z) > 40){
+      scene.removeChild(bullet.obj);
+      bullet = null;
+    }
+  }
 }
 
-// player vs ammo boxes
+// Camera vs ammo boxes
 function checkAmmoPickup(){
   for(let i=0;i<ammo_boxes.length;i++){
-    let b = ammo_boxes[i];
-    if(!b) continue;
-    if(distance(camera,b) < 1.0){
-      scene.removeChild(b);
+    let box = ammo_boxes[i];
+    if(!box) continue;
+
+    if(distance(camera,box) < 2.0){   // easier pickup radius
+      scene.removeChild(box);
       ammo_boxes[i] = null;
-      ammo_count += 3;   // how much ammo per box
+      ammo_count += 3;
       updateHUD();
     }
   }
