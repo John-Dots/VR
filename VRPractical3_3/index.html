@@ -10,17 +10,52 @@
   <body>
     <a-scene>
       <!-- Ground and sky -->
-      <a-plane position="0 0 0" rotation="-90 0 0" width="40" height="40" color="#7BC8A4"></a-plane>
+      <a-plane position="0 0 0"
+               rotation="-90 0 0"
+               width="40"
+               height="40"
+               color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
+
+      <!-- Clouds -->
+      <a-sphere position="-5 8 -10" radius="2"   color="#FFFFFF"></a-sphere>
+      <a-sphere position="0 9 -15"  radius="2.5" color="#FFFFFF"></a-sphere>
+      <a-sphere position="6 8 -8"   radius="2"   color="#F5F5F5"></a-sphere>
+      <a-sphere position="3 9 -20"  radius="3"   color="#FFFFFF"></a-sphere>
+
+      <!-- Trees (small, at edges) -->
+      <a-cylinder position="-12 0.75 -8"  radius="0.2" height="1.5" color="#8B4513"></a-cylinder>
+      <a-sphere   position="-12 1.7  -8"  radius="0.8"             color="#228B22"></a-sphere>
+
+      <a-cylinder position="10 0.75 -12" radius="0.2" height="1.5" color="#8B4513"></a-cylinder>
+      <a-sphere   position="10 1.7  -12" radius="0.8"             color="#228B22"></a-sphere>
+
+      <a-cylinder position="-8 0.75 -18" radius="0.2" height="1.5" color="#8B4513"></a-cylinder>
+      <a-sphere   position="-8 1.7  -18" radius="0.8"             color="#2E8B57"></a-sphere>
 
       <!-- Player camera -->
       <a-camera id="playerCam" position="0 1.6 5"></a-camera>
 
       <!-- HUD text -->
-      <a-text id="timerText"  value="Time: 60"  position="-1 2 -3" color="black"></a-text>
-      <a-text id="ammoText"   value="Ammo: 3"   position="-1 1.8 -3" color="black"></a-text>
-      <a-text id="killText"   value="Kills: 0"  position="-1 1.6 -3" color="black"></a-text>
-      <a-text id="statusText" value=""          position="0 2.2 -3"  color="red"></a-text>
+      <a-text id="timerText"
+              value="Time: 60"
+              position="-1 2 -3"
+              color="black"></a-text>
+
+      <a-text id="ammoText"
+              value="Ammo: 3"
+              position="-1 1.8 -3"
+              color="black"></a-text>
+
+      <a-text id="killText"
+              value="Kills: 0"
+              position="-1 1.6 -3"
+              color="black"></a-text>
+
+      <a-text id="statusText"
+              value=""
+              position="0 2.2 -3"
+              color="red"></a-text>
     </a-scene>
   </body>
 </html>
