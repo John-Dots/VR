@@ -8,7 +8,15 @@
     <a-scene>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="40" height="40" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
-      <a-camera position="0 1.6 0"></a-camera>
+
+      <!-- Camera -->
+      <a-camera id="playerCam" position="0 1.6 0"></a-camera>
+
+      <!-- UI text -->
+      <a-text id="timerText" value="Time: 60" position="-1 2 -3" color="black"></a-text>
+      <a-text id="ammoText"  value="Ammo: 3"  position="-1 1.8 -3" color="black"></a-text>
+      <a-text id="killText"  value="Kills: 0"  position="-1 1.6 -3" color="black"></a-text>
+      <a-text id="statusText" value=""        position="0 2.2 -3"  color="red"></a-text>
     </a-scene>
   </body>
 </html>
