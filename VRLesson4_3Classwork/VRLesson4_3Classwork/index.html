@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.2/dist/aframe-physics-system.min.js"></script>
+    <script src="ball.js"></script>
+    <script src="script.js"></script>
+    <script src="kinema.js"></script>
+  </head>
+  <body>
+<a-scene physics="debug: false">
+
+  <!-- Floor -->
+  <a-plane static-body color="green" rotation="-90 0 0" side="double" width="50" height="50" opacity="0.5"></a-plane>
+
+  <!-- Challenge 3: Add some static-body components for you and the balls to bump into -->
+
+  <a-entity id="cameraRig" movement-controls="fly: true; speed: 0.7" position="0 1.6 0">
+    <a-camera id="camera" kinema-body="radius: 0.8">
+      <a-cursor></a-cursor>
+    </a-camera>
+  </a-entity>
+</a-scene>
+  </body>
+</html>
