@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <!-- Challenge
+             Preload the dragonBreathe and fireball sounds
+        -->
+
+      </a-assets>
+      <!-- Challenge
+           Associate the dragonBreathe with the sphere below
+           such that it plays once for each interaction.
+           Hint: Think loop.
+      -->
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="40" height="40" color="#7BC8A4"></a-plane>
+
+      <a-sky color="#ECECEC"></a-sky>
+      <a-camera position="0 1.6 2">
+        <a-cursor>
+        </a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>
